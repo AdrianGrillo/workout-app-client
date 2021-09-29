@@ -9,10 +9,6 @@ const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
 
-    React.useEffect(() => {
-        console.log(state)
-    }, [state])
-
     return ( 
         <View style={styles.container}>
             <Spacer>
@@ -36,6 +32,7 @@ const SignupScreen = ({ navigation }) => {
                 autoCorrect={false}
             />
             <Spacer />
+            {/* If an errorMessage exists, display it */}
             { state.errorMessage ? (
                 <Text style={styles.errorMessage}>{state.errorMessage}</Text>
              ) : null }
