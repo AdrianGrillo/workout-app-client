@@ -11,7 +11,7 @@ const authReducer = (state, action) => {
                 errorMessage: action.payload
                 
             }
-        case 'signup' : 
+        case 'signin' : 
             return {
                 errorMessage: '',
                 token: action.payload
@@ -27,7 +27,7 @@ const signup = dispatch => async ({ email, password }) => {
             
             // Store jwt on users device so signin will persist through app restarts
             await AsyncStorage.setItem('token', response.data.token)
-            dispatch({ type: 'signup', payload: response.data.token })
+            dispatch({ type: 'signin', payload: response.data.token })
 
             navigate('TrackList')
         } catch(err) {
@@ -35,9 +35,17 @@ const signup = dispatch => async ({ email, password }) => {
         }
     }
 
-const signin = dispatch => {
-    return ({ email, password }) => {
+const signin = dispatch => async ({ email, password }) => {
+    try {
+        // Post to signin route then store token on local device for future use
+        const response = await trackerApi.post('signin', { email, password })
 
+        await AsyncStorage.setItem('token', response.data.token)
+        dispatch({ type: 'signin', payload: response.data.token })
+
+        navigate('TrackList')
+    } catch(err) {
+        dispatch({ type: 'add_error', payload: 'Something went wrong with signin' })
     }
 }
 

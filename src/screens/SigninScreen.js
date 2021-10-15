@@ -32,8 +32,10 @@ const styles = StyleSheet.create({
 })
 
 // Disable header 
-SigninScreen.navigationOptions = {
-    header: false
+SigninScreen.navigationOptions = () => {
+    return {
+        header: () => false
+    }
 }
 
 export default SigninScreen
