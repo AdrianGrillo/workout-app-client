@@ -37,16 +37,11 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
             <Spacer>
                 <Button 
                     title={submitButtonText}
-                    onPress={onSubmit} 
+                    onPress={() => onSubmit({email, password})} 
                 />
             </Spacer>
         </>
     )
-}
-
-// Remove header from top of AuthForm component.
-AuthForm.navigationOptions = {
-    headerShown: false
 }
 
 const styles=StyleSheet.create({

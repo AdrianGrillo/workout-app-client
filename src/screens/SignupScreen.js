@@ -25,6 +25,11 @@ const SignupScreen = () => {
     )
 }
 
+// Remove header from SignupScreen
+SignupScreen.navigationOptions = {
+    headerShown: false
+}
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
