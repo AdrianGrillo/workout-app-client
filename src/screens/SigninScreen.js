@@ -5,7 +5,7 @@ import AuthForm from '../components/AuthForm'
 import NavLink from '../components/NavLink'
 
 const SigninScreen = () => {
-    const { state, signin, clearErrorMessage } = React.useContext(AuthContext)
+    const { state, signin } = React.useContext(AuthContext)
 
     return ( 
         <View style={styles.container}>
