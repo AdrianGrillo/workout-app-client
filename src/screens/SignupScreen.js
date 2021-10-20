@@ -6,7 +6,12 @@ import AuthForm from '../components/AuthForm'
 import NavLink from '../components/NavLink'
 
 const SignupScreen = () => {
-    const { state, signup, clearErrorMessage } = React.useContext(AuthContext)
+    const { state, signup, clearErrorMessage, tryLocalSignin } = React.useContext(AuthContext)
+
+    // When the user first opens the application, try to log them in with a locally stored jwt.
+    React.useEffect(() => {
+        tryLocalSignin
+    }, [])
 
     return ( 
         <View style={styles.container}>

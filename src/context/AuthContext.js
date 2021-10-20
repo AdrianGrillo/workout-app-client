@@ -26,6 +26,17 @@ const authReducer = (state, action) => {
     }
 }
 
+// Check if the user has a token already stored on their local device, if so, then log them in.
+const tryLocalSignin = dispatch = async () => {
+    const token = await AsyncStorage.getItem('token')
+    if(token) {
+        dispatch({ type: 'signin', payload: token })
+        navigate('TrackList')
+    } else {
+        navigate('Signup')
+    }
+}
+
 const clearErrorMessage = dispatch => () => {
     dispatch({ type: 'clear_error_message' })
 }
@@ -66,7 +77,7 @@ const signout = dispatch => {
 
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signup, signin, signout, clearErrorMessage },
+    { signup, signin, signout, clearErrorMessage, tryLocalSignin },
     {         
         errorMessage: '',
         token: null
