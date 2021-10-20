@@ -1,14 +1,20 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
+import { NavigationEvents } from 'react-navigation'
 import { Context as AuthContext } from '../context/AuthContext'
 import AuthForm from '../components/AuthForm'
 import NavLink from '../components/NavLink'
 
 const SignupScreen = () => {
-    const { state, signup } = React.useContext(AuthContext)
+    const { state, signup, clearErrorMessage } = React.useContext(AuthContext)
 
     return ( 
         <View style={styles.container}>
+            {/* When navigating between Signup and Signin, clear error message in state */}
+            <NavigationEvents 
+                onWillBlur={clearErrorMessage} 
+                onWillFocus={clearErrorMessage}
+            />
             <AuthForm
                 headerText='Sign up'
                 errorMessage={state.errorMessage}
