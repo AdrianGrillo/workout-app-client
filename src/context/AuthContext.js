@@ -27,7 +27,7 @@ const authReducer = (state, action) => {
 }
 
 // Check if the user has a token already stored on their local device, if so, then log them in.
-const tryLocalSignin = dispatch = async () => {
+const tryLocalSignin = dispatch => async () => {
     const token = await AsyncStorage.getItem('token')
     if(token) {
         dispatch({ type: 'signin', payload: token })
