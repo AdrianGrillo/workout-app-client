@@ -21,6 +21,11 @@ const authReducer = (state, action) => {
                 ...state,
                 errorMessage: ''
             }
+        case 'signout' :
+            return {
+                errorMessage: '',
+                token: null
+            }
         default :
             return state
     }
@@ -69,10 +74,11 @@ const signin = dispatch => async ({ email, password }) => {
     }
 }
 
-const signout = dispatch => {
-    return () => {
-
-    }
+// Remove the jwt from local storage and app state then navigate user back to login
+const signout = dispatch => async () => {
+    await AsyncStorage.removeItem('token')
+    dispatch({ type: 'signout' })
+    navigate('loginFlow')
 }
 
 export const { Provider, Context } = createDataContext(
