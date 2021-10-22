@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, StyleSheet, ActivityIndicator } from 'react-native'
-import MapView, { Polyline } from 'react-native-maps'
+import MapView, { Polyline, Circle } from 'react-native-maps'
 import { Context as LocationContext } from '../context/LocationContext'
 
 const Map = () => {
@@ -20,13 +20,20 @@ const Map = () => {
                 latitudeDelta: 0.0001,
                 longitudeDelta: 0.001
             }}
-            // Keep the map centered on the user as they move through out the world
-            region={{
-                ...currentLocation.coords,
-                latitudeDelta: 0.0001,
-                longitudeDelta: 0.001
-            }}
+            // // Keep the map centered on the user as they move through out the world
+            // region={{
+            //     ...currentLocation.coords,
+            //     latitudeDelta: 0.0001,
+            //     longitudeDelta: 0.001
+            // }}
         >
+            {/* Display a circle to indicate the region where the user is located on the map */}
+            <Circle 
+                center={currentLocation.coords}
+                radius={30}
+                strokeColor='rgba(158, 158, 255, 1.0)'
+                fillColor='rgba(158, 158, 255, 0.3)'
+            />
         </MapView>
     )
 }
