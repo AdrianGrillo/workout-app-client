@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Text } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Map from '../components/Map'
-import { requestForegroundPermissionsAsync } from 'expo-location'
+import { requestForegroundPermissionsAsync, watchPositionAsync, Accuracy } from 'expo-location'
 
 const TrackCreateScreen = () => {
     const [err, setErr] = React.useState(null)
@@ -17,6 +17,15 @@ const TrackCreateScreen = () => {
             if(!granted) {
                 throw new Error('Location permission not granted')
             }
+
+            // When tracking the users location, use high accuracy and get an update either every second or 10 meters
+            await watchPositionAsync({
+                accuracy: Accuracy.BestForNavigation,
+                timeInterval: 1000,
+                distanceInterval: 10
+            }, (location) => {
+                console.log(location)
+            })
         } catch {
             setErr(e)
         }
