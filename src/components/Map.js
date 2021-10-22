@@ -1,27 +1,32 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, ActivityIndicator } from 'react-native'
 import MapView, { Polyline } from 'react-native-maps'
+import { Context as LocationContext } from '../context/LocationContext'
 
 const Map = () => {
-    let points = []
-    for(let i = 0; i < 20; i++) {
-        points.push({
-            latitude: 28.061718 + i * 0.001,
-            longitude: -82.467671 + i * 0.001
-        })
+    const { state: { currentLocation } } = React.useContext(LocationContext)
+
+    // Before we have a currentLocation of the user, show a spinner
+    if(!currentLocation) {
+        return <ActivityIndicator size='large' style={{ marginTop: 200 }} /> 
     }
 
     return (
         <MapView 
             style={styles.map} 
+            // Spread the currentLocation coords from our state onto the initialRegion prop, the initial position of the map will be the location of the user
             initialRegion={{
-                latitude: 28.061718,
-                longitude: -82.467671,
+                ...currentLocation.coords,
+                latitudeDelta: 0.0001,
+                longitudeDelta: 0.001
+            }}
+            // Keep the map centered on the user as they move through out the world
+            region={{
+                ...currentLocation.coords,
                 latitudeDelta: 0.0001,
                 longitudeDelta: 0.001
             }}
         >
-            <Polyline coordinates={points} />
         </MapView>
     )
 }
