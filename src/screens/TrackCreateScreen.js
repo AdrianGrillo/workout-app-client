@@ -4,38 +4,15 @@ import { StyleSheet } from 'react-native'
 import { Text } from 'react-native-elements'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Map from '../components/Map'
-import { requestForegroundPermissionsAsync, watchPositionAsync, Accuracy } from 'expo-location'
 import { Context as LocationContext } from '../context/LocationContext'
+import useLocation from '../hooks/useLocation'
 
 const TrackCreateScreen = () => {
-    const [err, setErr] = React.useState(null)
+    // Location context isnt extracted to hook because it's specific to creating a track
     const { addLocation } = React.useContext(LocationContext)
 
-    // Ask permission from users device if the app can use thier devices location data
-    const startWatching = async () => {
-        try {
-            const { granted } = await requestForegroundPermissionsAsync()
-
-            if(!granted) {
-                throw new Error('Location permission not granted')
-            }
-
-            // When tracking the users location, use high accuracy and add a location update to the app state either every second or 10 meters, whichever comes first
-            await watchPositionAsync({
-                accuracy: Accuracy.BestForNavigation,
-                timeInterval: 1000,
-                distanceInterval: 10
-            }, location => {
-                addLocation(location)
-            })
-        } catch {
-            setErr(e)
-        }
-    }
-
-    React.useEffect(() => {
-        startWatching()
-    }, [])
+    // Pass addLocation as a callback to useLocation, this will be used to update app state with new location data that's being generated from watchLocationAsync inside the hook
+    const [err] = useLocation(addLocation)
 
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
