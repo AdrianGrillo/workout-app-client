@@ -11,10 +11,12 @@ import TrackForm from '../components/TrackForm'
 
 const TrackCreateScreen = ({ isFocused }) => {
     // Location context isnt extracted to hook because it's specific to creating a track
-    const { addLocation } = React.useContext(LocationContext)
+    const { state, addLocation } = React.useContext(LocationContext)
 
     // Pass addLocation as a callback to useLocation, this will be used to update app state with new location data that's being generated from watchLocationAsync inside the hook
-    const [err] = useLocation(isFocused, addLocation)
+    const [err] = useLocation(isFocused, (location) => {
+        addLocation(location, state.recording)
+    })
     
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
