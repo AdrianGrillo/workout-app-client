@@ -13,7 +13,7 @@ const TrackCreateScreen = ({ isFocused }) => {
     const { addLocation } = React.useContext(LocationContext)
 
     // Pass addLocation as a callback to useLocation, this will be used to update app state with new location data that's being generated from watchLocationAsync inside the hook
-    const [err] = useLocation(addLocation)
+    const [err] = useLocation(isFocused, addLocation)
     
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>
