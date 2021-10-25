@@ -4,7 +4,7 @@ import MapView, { Polyline, Circle } from 'react-native-maps'
 import { Context as LocationContext } from '../context/LocationContext'
 
 const Map = () => {
-    const { state: { currentLocation } } = React.useContext(LocationContext)
+    const { state: { currentLocation, locations } } = React.useContext(LocationContext)
 
     // Before we have a currentLocation of the user, show a spinner
     if(!currentLocation) {
@@ -34,6 +34,8 @@ const Map = () => {
                 strokeColor='rgba(158, 158, 255, 1.0)'
                 fillColor='rgba(158, 158, 255, 0.3)'
             />
+            {/* Pass Polyline only the coords property from the locations object */}
+            <Polyline coordinates={locations.map(loc => loc.coords)} />
         </MapView>
     )
 }
