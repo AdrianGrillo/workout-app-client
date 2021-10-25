@@ -1,5 +1,6 @@
 import React from 'react'
 import { requestForegroundPermissionsAsync, watchPositionAsync, Accuracy } from 'expo-location'
+import { sub } from 'react-native-reanimated'
 
 export default (shouldTrack, callback) => {
     const [err, setErr] = React.useState(null)
@@ -35,7 +36,7 @@ export default (shouldTrack, callback) => {
             subscriber.remove()
             setSubscriber(null)
         }
-    }, [shouldTrack])
+    }, [shouldTrack, callback])
 
     return [err]
 }

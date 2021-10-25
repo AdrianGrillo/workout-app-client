@@ -13,10 +13,13 @@ const TrackCreateScreen = ({ isFocused }) => {
     // Location context isnt extracted to hook because it's specific to creating a track
     const { state, addLocation } = React.useContext(LocationContext)
 
-    // Pass addLocation as a callback to useLocation, this will be used to update app state with new location data that's being generated from watchLocationAsync inside the hook
-    const [err] = useLocation(isFocused, (location) => {
+    // Only give a new version of callback when state.recording changes to avoid a stale reference inside the useEffect hook in useLocation
+    const callback = React.useCallback(location => {
         addLocation(location, state.recording)
-    })
+    }, [state.recording])
+
+    // Pass addLocation as a callback to useLocation, this will be used to update app state with new location data that's being generated from watchLocationAsync inside the hook
+    const [err] = useLocation(isFocused, callback)
     
     return (
         <SafeAreaView forceInset={{ top: 'always' }}>

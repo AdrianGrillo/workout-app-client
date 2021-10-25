@@ -20,7 +20,7 @@ const Map = () => {
                 latitudeDelta: 0.0001,
                 longitudeDelta: 0.001
             }}
-            // // Keep the map centered on the user as they move through out the world
+            // // Uncomment this block of code to keep the map centered on the user as they move through out the world
             // region={{
             //     ...currentLocation.coords,
             //     latitudeDelta: 0.0001,
