@@ -8,7 +8,7 @@ const TrackForm = () => {
         state: { name, recording, locations }, 
         startRecording, 
         stopRecording, 
-        changeName 
+        changeName
     } = React.useContext(LocationContext)
 
     return <>
@@ -24,7 +24,13 @@ const TrackForm = () => {
             ) : (
                 <Button title={'Start Recording'} onPress={startRecording} /> 
             )}
-
+        </Spacer>
+        <Spacer>
+            {
+                !recording && locations.length 
+                ? <Button title='Save Recording' />
+                : null
+            }
         </Spacer>
     </>
 }
