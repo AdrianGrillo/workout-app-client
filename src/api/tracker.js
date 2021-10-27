@@ -2,7 +2,7 @@ import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const instance = axios.create({
-    baseURL: 'https://4d71-47-205-17-247.ngrok.io'
+    baseURL: 'https://b851-47-205-17-247.ngrok.io'
 })
 
 // Every time we make a reqest to the server, check if there's a jwt stored locally. If there is, attach it to the request to authenticate it 
