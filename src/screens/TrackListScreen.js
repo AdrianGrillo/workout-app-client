@@ -41,12 +41,11 @@ const TrackListScreen = ({ navigation }) => {
   ];
 
   return (
-    <View style={styles.container}>
-      {/* <NavigationEvents /> */}
+    <View>
+      <NavigationEvents />
       <FlatList
         data={state}
         keyExtractor={item => item._id}
-        style={styles.flatList}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -54,8 +53,8 @@ const TrackListScreen = ({ navigation }) => {
                 navigation.navigate("TrackDetail", { _id: item._id })
               }
             >
-              <ListItem style={styles.listItem}>
-                <ListItem.Content style={styles.listItemContent}>
+              <ListItem>
+                <ListItem.Content>
                   <ListItem.Title>{item.name}</ListItem.Title>
                 </ListItem.Content>
                 <ListItem.Chevron />
@@ -68,24 +67,8 @@ const TrackListScreen = ({ navigation }) => {
   );
 };
 
-// TrackListScreen.navigationOptions = {
-//   title: "Tracks",
-// };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "red",
-    marginBottom: 200,
-  },
-  flatList: {
-    backgroundColor: "blue",
-  },
-  listItem: {
-    backgroundColor: "red",
-  },
-  listItemContent: {
-    // backgroundColor: "blue",
-  },
-});
+TrackListScreen.navigationOptions = {
+  title: "Tracks",
+};
 
 export default TrackListScreen;

@@ -27,18 +27,16 @@ trackListFlow.navigationOptions = {
 
 // Navigation flow between screens
 const switchNavigator = createSwitchNavigator({
-  // Super bootleg, just show each screen populated with dummy data and the new styles to show on my portfolio
-  trackListFlow,
   // ResolveAuth: ResolveAuthScreen,
   // loginFlow: createStackNavigator({
   //   Signup: SignupScreen,
   //   Signin: SigninScreen
   // }),
-  // mainFlow: createBottomTabNavigator({
-  //   trackListFlow,
-  //   TrackCreate: TrackCreateScreen,
-  //   Account: AccountScreen
-  // })
+  mainFlow: createBottomTabNavigator({
+    trackListFlow,
+    TrackCreate: TrackCreateScreen,
+    Account: AccountScreen,
+  }),
 });
 
 const App = createAppContainer(switchNavigator);
